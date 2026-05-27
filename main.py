@@ -5,11 +5,15 @@ from bs4 import BeautifulSoup
 from pypdf import PdfReader
 from dotenv import load_dotenv
 from langchain_openai import ChatOpenAI
-# from langchain_ollama import ChatOllama
+from langsmith import traceable
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 
 load_dotenv()
+
+os.environ["LANGSMITH_TRACING"] = "true"
+os.environ["LANGSMITH_API_KEY"] = os.getenv("LANGSMITH_API_KEY")
+os.environ["LANGSMITH_PROJECT"] = "Job-Matcher"
 
 st.set_page_config(page_title="AI Resume Matcher (LangChain)", layout="wide")
 st.title("Job Matcher (LangChain + Ollama)")
@@ -20,7 +24,7 @@ llm = ChatOpenAI(
     api_key=os.getenv("OLLAMA_API_KEY")
 )
 
-prompt = ChatPromptTemplate.from_template("""
+prompt = ChatPromptTemplate.from_template(""" 
 You are a senior recruiter and ATS expert.
 
 Compare the resume and job description and provide:
