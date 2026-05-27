@@ -1,0 +1,9 @@
+requests 
+beautifulsoup4 
+pypdf 
+python-dotenv 
+ollama
+streamlit
+langchain 
+langchain-community 
+langchain-openai
